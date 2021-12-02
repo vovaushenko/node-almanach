@@ -1,0 +1,15 @@
+{
+	"name": "node-almanach",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "PORT=5000 NODE_ENV=production nodemon 1-process.js"
+	},
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"dotenv": "^10.0.0"
+	}
+}
