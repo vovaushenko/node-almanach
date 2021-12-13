@@ -26,3 +26,6 @@
 14) npm i uuid  -> npm i --save-dev @types/uuid
 
 15) npm i express-validator
+16) mkdir src/validators
+
+17) mkdir src/middleware

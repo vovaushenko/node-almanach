@@ -1,7 +1,7 @@
-import express, { NextFunction, Request, Response } from 'express';
-import { validationResult } from 'express-validator';
+import express, { Request, Response } from 'express';
 import { v4 as uuidv4 } from 'uuid';
 import db from './config/database.config';
+import Middleware from './middleware';
 import { TodoIntance } from './model';
 import TodoValidator from './validator';
 
@@ -17,13 +17,7 @@ app.use(express.json());
 app.post(
 	'/todos',
 	TodoValidator.validateNewTodo(),
-	(req: Request, res: Response, next: NextFunction) => {
-		const error = validationResult(req);
-		if (!error.isEmpty()) {
-			return res.json(error);
-		}
-		next();
-	},
+	Middleware.handleValidationError,
 	async (req: Request, res: Response) => {
 		const id = uuidv4();
 		const newTodo = { ...req.body, id };
