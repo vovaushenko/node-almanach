@@ -12,3 +12,6 @@
    	          2) 	"outDir": "./dist"
    	          3)  	"rootDir": "./"		
    	          4)"moduleResolution": "node"
+   	          
+8) npm i express  
+9) npm i --save-dev @types/express
