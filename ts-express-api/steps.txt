@@ -15,3 +15,10 @@
    	          
 8) npm i express  
 9) npm i --save-dev @types/express
+
+10) npm i sequelize
+11) npm i sqlite3
+
+12) mkdir/src/config -> touch/src/config/database.config.ts
+
+13)mkdir/src/model -> index.ts -> with todos model
