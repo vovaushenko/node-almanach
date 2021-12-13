@@ -33,6 +33,27 @@ app.post(
 );
 
 app.get(
+	'/todos/:id',
+	TodoValidator.validateIdParam(),
+	Middleware.handleValidationError,
+	async (req: Request, res: Response) => {
+		try {
+			const { id } = req.params;
+			const record = await TodoIntance.findOne({ where: { id } });
+
+			if (!record) {
+				return res.status(404).json({ msg: `Todo with ${id} not found` });
+			}
+
+			return res.status(200).json(record);
+		} catch (error) {
+			return res
+				.status(500)
+				.json({ err: 'failed to read', route: '/todos/:id', method: 'get' });
+		}
+	}
+);
+app.get(
 	'/todos',
 	TodoValidator.validateTodoQuery(),
 	Middleware.handleValidationError,
