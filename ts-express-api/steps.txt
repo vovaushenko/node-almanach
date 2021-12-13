@@ -1,0 +1,14 @@
+1) npm init -y
+2) npm i --save-dev typescript
+3) npm i --save-dev ts-node-dev
+4) mkdir src
+5) touch src/server.ts
+6) package.json -> "scripts" : "dev": "ts-node-dev --respawn src/server.ts"
+				       "build": "tsc",
+				       "start": "node dist/src/server.js"
+
+7) init ts config -> npx tsc --init
+   in tsconfig -> 1) "target": "ESNEXT"
+   	          2) 	"outDir": "./dist"
+   	          3)  	"rootDir": "./"		
+   	          4)"moduleResolution": "node"
