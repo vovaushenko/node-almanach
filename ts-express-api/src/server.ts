@@ -72,6 +72,60 @@ app.get(
 	}
 );
 
+app.put(
+	'/todos/:id',
+	TodoValidator.validateIdParam(),
+	Middleware.handleValidationError,
+	async (req: Request, res: Response) => {
+		try {
+			const { id } = req.params;
+			const foundRecord = await TodoIntance.findOne({ where: { id } });
+			if (!foundRecord) {
+				return res.status(404).json({ msg: `Todo with ${id} not found` });
+			}
+
+			const updatedRecord = await foundRecord.update({
+				completed: !foundRecord.getDataValue('completed'),
+			});
+
+			return res
+				.status(201)
+				.json({ msg: 'successfully updated', updatedRecord });
+		} catch (error) {
+			return res
+				.status(500)
+				.json({ err: 'failed to update', route: '/todos', method: 'put' });
+		}
+	}
+);
+
+app.delete(
+	'/todos/:id',
+	TodoValidator.validateIdParam(),
+	Middleware.handleValidationError,
+	async (req: Request, res: Response) => {
+		try {
+			const { id } = req.params;
+			const foundRecord = await TodoIntance.findOne({ where: { id } });
+			if (!foundRecord) {
+				return res.status(404).json({ msg: `Todo with ${id} not found` });
+			}
+
+			const updatedRecord = await foundRecord.destroy();
+
+			return res.status(201).json({ msg: 'successfully deleted' });
+		} catch (error) {
+			return res
+				.status(500)
+				.json({
+					err: 'failed to update',
+					route: '/todos/:id',
+					method: 'delete',
+				});
+		}
+	}
+);
+
 app.listen(PORT, () => {
 	console.log(`💻 Server is running on port ${PORT} 💻`);
 });
