@@ -32,6 +32,25 @@ app.post(
 	}
 );
 
+app.get(
+	'/todos',
+	TodoValidator.validateTodoQuery(),
+	Middleware.handleValidationError,
+	async (req: Request, res: Response) => {
+		try {
+			const limit = req.query?.limit as number | undefined;
+			const offset = req.query?.offset as number | undefined;
+
+			const records = await TodoIntance.findAll({ where: {}, limit, offset });
+			res.status(200).json({ count: records.length, records });
+		} catch (error) {
+			return res
+				.status(500)
+				.json({ err: 'failed to read', route: '/todos', method: 'get' });
+		}
+	}
+);
+
 app.listen(PORT, () => {
 	console.log(`💻 Server is running on port ${PORT} 💻`);
 });
