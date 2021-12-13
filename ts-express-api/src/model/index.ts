@@ -7,11 +7,11 @@ interface TodoAttributes {
 	completed: boolean;
 }
 
-class TodoIntance extends Model<TodoAttributes> {}
+export class TodoIntance extends Model<TodoAttributes> {}
 
 TodoIntance.init(
 	{
-		id: { type: DataTypes.STRING, primaryKey: true, allowNull: false },
+		id: { type: DataTypes.UUIDV4, primaryKey: true, allowNull: false },
 		title: { type: DataTypes.STRING, allowNull: false },
 		completed: {
 			type: DataTypes.BOOLEAN,
