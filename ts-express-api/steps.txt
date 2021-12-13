@@ -24,3 +24,5 @@
 13)mkdir/src/model -> index.ts -> with todos model
  
 14) npm i uuid  -> npm i --save-dev @types/uuid
+
+15) npm i express-validator
