@@ -1,3 +1,4 @@
+import cors from 'cors';
 import express from 'express';
 import db from './config/database.config';
 import router from './todo/router';
@@ -7,6 +8,7 @@ db.sync().then(() => {
 });
 
 const app = express();
+app.use(cors());
 const PORT = 5000;
 
 app.use(express.json());

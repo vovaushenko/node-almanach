@@ -22,7 +22,7 @@ class TodoValidator {
 			query('limit')
 				.notEmpty()
 				.withMessage('The query should contain limit')
-				.isInt({ min: 1, max: 10 })
+				.isInt({ min: 1, max: 100 })
 				.withMessage('Value should be in range 1-10'),
 			query('offset')
 				.notEmpty()
