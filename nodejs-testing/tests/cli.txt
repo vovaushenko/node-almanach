@@ -1,0 +1,6 @@
+mocha folder --recursive
+
+mocha ./lib/**/*.test.js
+
+mocha './lib/**/*.test.js'
+

@@ -26,10 +26,17 @@ router.get(
 );
 
 router.put(
-	'/todos/:id',
+	'/todos/:id/status',
 	TodoValidator.validateIdParam(),
 	Middleware.handleValidationError,
 	TodoController.updateTodoStatus
+);
+
+router.put(
+	'/todos/:id/title',
+	TodoValidator.validateUpdateTodoTitle(),
+	Middleware.handleValidationError,
+	TodoController.updateTodoTitle
 );
 
 router.delete(

@@ -27,4 +27,11 @@ describe('file to be tested', () => {
 		//*pending test
 		it('this is a penging test');
 	});
+
+	context('another function', () => {
+		before(() => {
+			console.log('\n' + '====== Context # 2 ======');
+		});
+		it('should be pending');
+	});
 });

@@ -41,6 +41,17 @@ class TodoValidator {
 				.withMessage('ID should be in UUIDv4 format'),
 		];
 	}
+
+	validateUpdateTodoTitle() {
+		return [
+			param('id')
+				.notEmpty()
+				.withMessage('The value should not be empty')
+				.isUUID(4)
+				.withMessage('ID should be in UUIDv4 format'),
+			body('title').notEmpty().withMessage('Todo missing title'),
+		];
+	}
 }
 
 export default new TodoValidator();

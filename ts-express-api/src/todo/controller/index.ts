@@ -69,6 +69,33 @@ class TodoController {
 		}
 	}
 
+	async updateTodoTitle(req: Request, res: Response) {
+		try {
+			const { id } = req.params;
+			const { title } = req.body;
+			const foundRecord = await TodoIntance.findOne({ where: { id } });
+			if (!foundRecord) {
+				return res.status(404).json({ msg: `Todo with ${id} not found` });
+			}
+
+			const updatedRecord = await foundRecord.update({
+				title,
+			});
+
+			return res
+				.status(201)
+				.json({ msg: 'successfully updated', updatedRecord });
+		} catch (error) {
+			return res
+				.status(500)
+				.json({
+					err: 'failed to update',
+					route: '/todos/:id/title',
+					method: 'put',
+				});
+		}
+	}
+
 	async deleteTodo(req: Request, res: Response) {
 		try {
 			const { id } = req.params;
