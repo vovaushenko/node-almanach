@@ -16,6 +16,7 @@ const { expect } = chai;
 
 describe('users', () => {
 	let findStub;
+	let deleteStub;
 	let sampleArgs;
 	let sampleUser;
 
@@ -29,6 +30,9 @@ describe('users', () => {
 			email: 'foo@bar.com',
 		};
 		findStub = sandbox.stub(mongoose.Model, 'findById').resolves(sampleUser);
+		deleteStub = sandbox
+			.stub(mongoose.Model, 'remove')
+			.resolves('fake_remove_result');
 	});
 	/**
 	 *@AFTER each test we cleanup sandbox
@@ -37,6 +41,9 @@ describe('users', () => {
 		sandbox.restore();
 	});
 
+	/**
+	 *@GET user by id tests
+	 */
 	context('get', () => {
 		it('should throw an error if id is not specified', (done) => {
 			users.get(null, (err, _res) => {
@@ -77,6 +84,35 @@ describe('users', () => {
 				expect(err).to.be.instanceOf(Error);
 				expect(err).to.have.property('message').to.equal('fake error');
 			});
+		});
+	});
+
+	/**
+	 *@DELETE user by id tests
+	 */
+
+	context('delete user', () => {
+		it('should check for error using return', () => {
+			return users
+				.delete()
+				.then((res) => {
+					throw new Error('unexpected success, will not reach this block');
+				})
+				.catch((err) => {
+					expect(err).to.be.instanceOf(Error);
+					expect(err).to.have.property('message').to.equal('Invalid id');
+				});
+		});
+
+		it('should check for error using eventually', () => {
+			return expect(users.delete()).to.eventually.be.rejectedWith('Invalid id');
+		});
+
+		it('should call User.remove', async () => {
+			let result = await users.delete(123);
+
+			expect(deleteStub).to.have.been.calledWith({ _id: 123 });
+			expect(result).to.equal('fake_remove_result');
 		});
 	});
 });
