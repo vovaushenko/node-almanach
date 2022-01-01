@@ -199,4 +199,29 @@ describe('users', () => {
 			).to.eventually.be.rejectedWith('fake err');
 		});
 	});
+
+	/**
+	 *@RESET password tests
+	 */
+
+	context('reset password', () => {
+		let resetStub;
+
+		beforeEach(() => {
+			resetStub = sandbox
+				.stub(mailer, 'sendPasswordResetEmail')
+				.resolves('reset');
+		});
+
+		it('should check for email', async () => {
+			await expect(users.resetPassword()).to.eventually.be.rejectedWith(
+				'Invalid email'
+			);
+		});
+ne
+		it('should call mailer.sendPasswordResetEmail', async () => {
+			await users.resetPassword('foo@bar.com');
+			expect(resetStub).to.have.been.calledWith('foo@bar.com');
+		});
+	});
 });
