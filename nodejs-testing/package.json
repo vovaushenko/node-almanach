@@ -16,9 +16,11 @@
     "prettier": "^2.5.1",
     "rewire": "^6.0.0",
     "sinon": "^12.0.1",
-    "sinon-chai": "^3.7.0"
+    "sinon-chai": "^3.7.0",
+    "supertest": "^6.1.6"
   },
   "dependencies": {
+    "express": "^4.17.2",
     "mongoose": "^6.1.4"
   }
 }
